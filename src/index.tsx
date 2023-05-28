@@ -4,13 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppXY from './AppXY';
+import AppMentor from './AppMentor';
+import AppMentors from './AppMentors';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AppXY />
+        <AppMentors />
     </React.StrictMode>
 );
 
