@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-type Props = {};
-
 type Mentor = {
     name: string;
     title: string;
@@ -13,10 +11,7 @@ type Person = {
     mentors: Mentor[];
 };
 
-type SetPerson = {
-    setPerson: () => void;
-};
-export default function AppMentors({}: Props) {
+export default function AppMentors() {
     const [person, setPerson] = useState<Person>({
         name: '지운',
         title: '개발자',
@@ -63,6 +58,34 @@ export default function AppMentors({}: Props) {
                 }}
             >
                 멘토 이름 바꾸기
+            </button>
+            <button
+                onClick={() => {
+                    const name = prompt('추가하고 싶은 멘토는?');
+                    const title = prompt('멘토의 타이틀은?');
+                    setPerson((person: Person) => ({
+                        ...person,
+                        mentors: [
+                            ...person.mentors,
+                            { name: name || '', title: title || '' },
+                        ],
+                    }));
+                }}
+            >
+                멘토 추가하기
+            </button>
+            <button
+                onClick={() => {
+                    const name = prompt('삭제하고 싶은 멘토는?');
+                    setPerson((person: Person) => ({
+                        ...person,
+                        mentors: person.mentors.filter(
+                            (m: Mentor) => m.name !== name
+                        ),
+                    }));
+                }}
+            >
+                멘토 삭제하기
             </button>
         </div>
     );
