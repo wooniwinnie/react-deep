@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
+import personReducer from './reducer/personReducer';
 
 type Mentor = {
     name: string;
@@ -12,54 +13,25 @@ type Person = {
 };
 
 export default function AppMentors() {
+    const [person, dispatch] = useReducer(personReducer, initialPerson);
+    // const [person, setPerson] = useState<Person>();
     const handleChange = () => {
         const prev = prompt('누구를 바꾸고 싶니?');
         const current = prompt('어떤 멘토로 바꾸고 싶니?');
-        // 1. 사용자가 멘토 이름 바꾸기 클릭하고 입력한 값(prev)이 현재 멘토 객체의 이름과 동일한지 비교해야함 : if문?
-        setPerson((person: Person) => ({
-            ...person,
-            mentors: person.mentors.map((mentor: Mentor) => {
-                if (mentor.name === prev) {
-                    // fallback value 추가
-                    // 사용자가 입력을 취소하면 null을 반환하기 때문에 타입오류 발생하는 것을 방지하기 위함!
-                    return { ...mentor, name: current || '' };
-                }
-                return mentor;
-            }),
-        }));
+
+        dispatch({ type: 'CHANGE', prev, current });
     };
+
     const handleAdd = () => {
         const name = prompt('추가하고 싶은 멘토는?');
         const title = prompt('멘토의 타이틀은?');
-        setPerson((person: Person) => ({
-            ...person,
-            mentors: [
-                ...person.mentors,
-                { name: name || '', title: title || '' },
-            ],
-        }));
+        dispatch({ type: 'ADD', name, title });
     };
     const handleDelete = () => {
         const name = prompt('삭제하고 싶은 멘토는?');
-        setPerson((person: Person) => ({
-            ...person,
-            mentors: person.mentors.filter((m: Mentor) => m.name !== name),
-        }));
+        dispatch({ type: 'DELETE', name });
     };
-    const [person, setPerson] = useState<Person>({
-        name: '지운',
-        title: '개발자',
-        mentors: [
-            {
-                name: '밥',
-                title: '시니어개발자',
-            },
-            {
-                name: '제임스',
-                title: '시니어개발자',
-            },
-        ],
-    });
+
     return (
         <div>
             <h1>
@@ -79,3 +51,18 @@ export default function AppMentors() {
         </div>
     );
 }
+
+const initialPerson = {
+    name: '지운',
+    title: '개발자',
+    mentors: [
+        {
+            name: '밥',
+            title: '시니어개발자',
+        },
+        {
+            name: '제임스',
+            title: '시니어개발자',
+        },
+    ],
+};
