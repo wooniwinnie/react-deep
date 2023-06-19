@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+
 import { AppMentors } from './AppMentors';
-import { AppMentorsReducer } from './AppMentorsReducer';
+import { AppForms } from './AppForms';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AppMentorsReducer />
+        <AppForms />
     </React.StrictMode>
 );
 
