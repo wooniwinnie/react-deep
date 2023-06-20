@@ -1,19 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
 import './index.css';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { AppMentors } from './AppMentors';
-import { AppForms } from './AppForms';
-import { AppWrap } from './AppWrap';
+import AppProducts from './AppProducts';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AppWrap />
+        <AppProducts />
     </React.StrictMode>
 );
 
