@@ -8,13 +8,14 @@ import { AppMentors } from './AppMentors';
 import { AppForms } from './AppForms';
 import { AppWrap } from './AppWrap';
 import AppCard from './AppCard';
+import AppTheme from './AppTheme';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AppCard />
+        <AppTheme />
     </React.StrictMode>
 );
 
