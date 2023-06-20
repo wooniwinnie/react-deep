@@ -7,13 +7,14 @@ import reportWebVitals from './reportWebVitals';
 import { AppMentors } from './AppMentors';
 import { AppForms } from './AppForms';
 import { AppWrap } from './AppWrap';
+import AppCard from './AppCard';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AppWrap />
+        <AppCard />
     </React.StrictMode>
 );
 
