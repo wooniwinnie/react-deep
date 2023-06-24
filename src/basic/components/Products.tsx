@@ -8,24 +8,33 @@ type Product = {
     price: string;
 };
 
+type Error = string | undefined;
+
 export default function Products({}: Props) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<Error>();
     const [products, setProducts] = useState<Product[]>([]);
     const [checked, setChecked] = useState<string>('false');
     const handleChange = () => {
         setChecked((prev) => (prev === 'true' ? 'false' : 'true'));
     };
     useEffect(() => {
+        setLoading(true);
+        setError(undefined);
         fetch(`data/${checked === 'true' ? 'sale_' : ''}products.json`)
             .then((res) => res.json())
             .then((data) => {
                 console.log('데이터 전송 완료');
                 setProducts(data);
-            });
+            })
+            .catch((e) => setError('에러가 발생했다!'))
+            .finally(() => setLoading(false));
         return () => {
             console.log('청소 진행합니다');
         };
     }, [checked]);
 
+    if (loading) return <p>Loading 중입니돠</p>;
     return (
         <>
             <input type='checkbox' value={checked} onChange={handleChange} />

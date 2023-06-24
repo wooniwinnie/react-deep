@@ -4,18 +4,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import { AppMentors } from './AppMentors';
-import { AppForms } from './AppForms';
-import { AppWrap } from './AppWrap';
-import AppCard from './AppCard';
 import AppTheme from './AppTheme';
+import AppProducts from './basic/AppProducts';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AppTheme />
+        <AppProducts />
     </React.StrictMode>
 );
 
