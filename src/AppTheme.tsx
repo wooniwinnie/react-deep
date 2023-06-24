@@ -1,14 +1,20 @@
-import React from 'react';
+import { spawn } from 'child_process';
+import React, { useContext } from 'react';
+import './Apptheme.css';
+import { DarkModeContext, DarkModeProvider } from './context/DarkModeContext';
 
 type Props = {};
-
+type AppThemeContextType = {
+    darkMode: boolean;
+    toggleDarkMode: () => void;
+};
 const AppTheme = (props: Props) => {
     return (
-        <div>
+        <DarkModeProvider>
             <Header />
             <Main />
             <Footer />
-        </div>
+        </DarkModeProvider>
     );
 };
 
@@ -20,7 +26,7 @@ const Header = () => {
 
 const Main = () => {
     return (
-        <main>
+        <main className='main'>
             Main
             <Profile />
             <Products />
@@ -51,11 +57,26 @@ const Products = () => {
 };
 
 const ProductDetail = () => {
+    const context = useContext(DarkModeContext);
+    if (!context) {
+        throw new Error('에러가 발생했음');
+    }
+    const { darkMode, toggleDarkMode } = context;
+
     return (
         <div>
             Product Detail
-            <p>DarkMode:</p>
-            <button>Toggle</button>
+            <p>
+                DarkMode:
+                {darkMode ? (
+                    <span style={{ backgroundColor: 'black', color: 'white' }}>
+                        DarkMode
+                    </span>
+                ) : (
+                    <span>Light Mode</span>
+                )}
+            </p>
+            <button onClick={() => toggleDarkMode()}>Toggle</button>
         </div>
     );
 };
