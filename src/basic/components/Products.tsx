@@ -1,43 +1,26 @@
-import React, { useEffect, useState } from 'react';
-
-type Props = {};
+import React, { useState } from 'react';
+import useProducts from '../../hooks/use-products';
 
 type Product = {
     id: string;
     name: string;
     price: string;
 };
-
-type Error = string | undefined;
-
-export default function Products({}: Props) {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<Error>();
-    const [products, setProducts] = useState<Product[]>([]);
-    const [checked, setChecked] = useState<string>('false');
+export default function Products() {
+    const [checked, setChecked] = useState<boolean>(false);
+    const { loading, error, products } = useProducts({
+        salesOnly: checked,
+    });
     const handleChange = () => {
-        setChecked((prev) => (prev === 'true' ? 'false' : 'true'));
+        setChecked((prev) => !prev);
     };
-    useEffect(() => {
-        setLoading(true);
-        setError(undefined);
-        fetch(`data/${checked === 'true' ? 'sale_' : ''}products.json`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log('데이터 전송 완료');
-                setProducts(data);
-            })
-            .catch((e) => setError('에러가 발생했다!'))
-            .finally(() => setLoading(false));
-        return () => {
-            console.log('청소 진행합니다');
-        };
-    }, [checked]);
 
     if (loading) return <p>Loading 중입니돠</p>;
+
+    if (error) return <p>{error}</p>;
     return (
         <>
-            <input type='checkbox' value={checked} onChange={handleChange} />
+            <input type='checkbox' checked={checked} onChange={handleChange} />
             <label htmlFor='checkbox'>세일품목 보기</label>
             <ul>
                 {products.map((product) => (
